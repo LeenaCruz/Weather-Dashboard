@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  }
+  
+
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+    .containerSearch {
+        /* border: 5px solid black; */
+        display: flex;
+        width: 30%;
+        /* height: 100vh; */
+        justify-content: space-between;
+flex-direction: column;
+/* min-height: 100vh; */
+align-content: baseline;
+       /* flex-direction: column; */
+       /* align-content:space-between; */
+    }
+    
+    hr {
+        width: 98%;
+        justify-content: left;
+        height: 1px;
+        color: black;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    
+    }
+
+
+    .containerResults {
+        /* border: 5px solid black; */
+        background-color: pink;
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+        flex-direction: column;
+    
+    }
+
+header {
+    background-color: purple;
+text-align: center;
+    color: white;
+}
+
+#search {
+display: flex;
+    justify-content: left;
+    align-self: center;
+    background-color: blueviolet;
+    padding: 10px;
+    flex-wrap: wrap;
+   
+}
+
+#results {
+    background-color: greenyellow;
+ flex-wrap: wrap;
+ height: 200px;
+ padding: 10px;
+ 
+    /* display: flex; */
+    /* justify-content: left; */
+}
+
+
+
+
+#ciudad {
+    background-color: rgb(221, 84, 226);
+  
+    height: 200px;
+    padding: 10px;
+
+}
+
+#forecast {
+    background-color: pink;
+  padding: 10px;
+  flex-wrap: wrap;
+
+ /* display: block; */
+}
+

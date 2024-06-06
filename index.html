@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leena Weather Dashboard</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1> Weather Dashboard</h1>
+    </header>
+    <!-- <aside class="containerSearch">
+        <section id="search">
+            <h2>Search for a City</h2>
+            <div>
+                <input type="text">
+                <button>Search</button>
+            </div>
+        </section>
+        <hr>
+        <section id="results">
+            <p> TextHolder Cities </p>
+        </section>
+    </aside> -->
+    <main class="container">
+        <div class="containerSearch">
+            <section id="search">
+                <h2>Search for a City</h2>
+                <div>
+                    <input type="text" id="ciudadInput"> </input>
+                    <button id="searchBtn">Search</button>
+                </div>
+                <hr>
+            </section>
+         
+            <section id="results">
+                <p> TextHolder Cities </p>
+            </section>
+        </div>
+        <section class="containerResults">
+            <div id="ciudad">
+                <h2> Ciudad</h2>
+            </div>
+            <div id="forecast">
+                <h2> 5-Day Forecast:</h2>
+                <div id="forecastCards"></div>
+            </div>
+        </section>
+    </main>
+    <script src="/assets/script.js"></script>
+</body>
+
+</html>
