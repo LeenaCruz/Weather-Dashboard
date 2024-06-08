@@ -54,7 +54,6 @@ text-align: center;
 #search {
 display: flex;
     justify-content: left;
-    align-self: center;
     background-color: blueviolet;
     padding: 10px;
     flex-wrap: wrap;
