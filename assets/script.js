@@ -120,9 +120,13 @@ function getWeatherGOD() {
         .then(response => response.json())
         .then(data => {
           console.log(data);
+const date = data.dt * 1000;
+const dateTime = dayjs(date).format("YYYY-MM-DD");
+console.log(dateTime)
+
           const today = {
             name: data.name,
-            date: data.dt,
+            date: dateTime,
             temp: data.main.temp,
             wind: data.wind.speed,
             humidity: data.main.humidity,
