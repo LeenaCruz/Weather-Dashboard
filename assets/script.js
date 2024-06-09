@@ -131,7 +131,7 @@ function getWeatherGOD() {
                 date: data.list[i].dt_txt,
                 temp: data.list[i].main.temp,
                 wind: data.list[i].wind.speed,
-                lat: data.city.coord.lat,
+                humidity: data.list[i].main.humidity,
               }
 
               // const cityForecast = cityForecast + weather || []  ; 
@@ -146,7 +146,7 @@ function getWeatherGOD() {
               // return cityForecast;
             }
 
-          
+
             // const today = dayjs().format('YYYY-MM-DD');
             // console.log(typeof today + " " + today);
             // const date = JSON.stringify(data.list[0].dt_txt.split(" ").slice(0, -1));
@@ -194,7 +194,7 @@ function getWeatherGOD() {
             // }
 
           }
-const cityForecast =JSON.parse(localStorage.getItem("forecast"));
+          const cityForecast = JSON.parse(localStorage.getItem("forecast"));
 
           const cityData = {
             name: data.city.name,
@@ -211,19 +211,62 @@ const cityForecast =JSON.parse(localStorage.getItem("forecast"));
           const cities = JSON.parse(localStorage.getItem("cities")) || [];
           cities.push(cityData);
           localStorage.setItem("cities", JSON.stringify(cities));
-       console.log(cities)
-
+          console.log(cities)
+          createCard3();
 
         });
 
     });
 
-    // console.log(JSON.parse(localStorage.getItem("cities")));
+  // console.log(JSON.parse(localStorage.getItem("cities")));
 
 }
 
 //Se me ocurre que puede tomar los ultimos 5 datos de local storage y renderizarlos
 //o renderizar el nombre de la ciudad
+
+function createCard3() {
+
+  const cities = JSON.parse(localStorage.getItem("cities")) || [];
+  console.log("Lista de ciudades")
+  console.log(cities);
+
+  const last = cities.pop();
+  console.log(last);
+
+  const dayWeather = document.getElementById('ciudad')
+  const weatherCard = document.createElement('div');
+  const cityNameEl = document.createElement('h2');
+  const tempEl = document.createElement('p');
+  const windEl = document.createElement('p');
+  const humidityEl = document.createElement('p');
+
+  cityNameEl.textContent = last.name;
+  tempEl.textContent = last.cityForecast[0].temp;
+  windEl.textContent = last.cityForecast[0].wind;
+  humidityEl.textContent = last.cityForecast[0].humidity;
+
+  weatherCard.appendChild(cityNameEl);
+  weatherCard.appendChild(tempEl);
+  weatherCard.appendChild(windEl);
+  weatherCard.appendChild(humidityEl);
+  dayWeather.appendChild(weatherCard);
+
+// Limpiar la carta anterior
+}
+
+
+// function createForecast(data) {
+
+//   for (data of cities)
+
+
+// }
+
+
+
+
+
 
 function createCard2(card) {
 
