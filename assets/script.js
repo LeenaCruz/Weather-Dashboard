@@ -116,149 +116,177 @@ function getWeatherGOD() {
       localStorage.setItem("coordinates", JSON.stringify(cityList));
       // localStorage.setItem("coordinates", JSON.stringify(coordinates));
       console.log(cityList);
-      return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${APIKey}`)
+      return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${APIKey}`)
         .then(response => response.json())
         .then(data => {
           console.log(data);
-          const length = data.list.length;
-          console.log(length);
+          const today = {
+            name: data.name,
+            date: data.dt,
+            temp: data.main.temp,
+            wind: data.wind.speed,
+            humidity: data.main.humidity,
+            weather: data.weather[0].main,
+          }
+          localStorage.removeItem('today');
+          const todayWeather = JSON.parse(localStorage.getItem("today")) || [];
+          todayWeather.push(today);
+          localStorage.setItem('today', JSON.stringify(todayWeather));
 
-          for (let i = 0; i < length; i++) {
-            const time = data.list[0].dt_txt.split(" ").pop();
-            if (data.list[i].dt_txt.includes(time)) {
-              const weather = {
-                name: data.city.name,
-                date: data.list[i].dt_txt,
-                temp: data.list[i].main.temp,
-                wind: data.list[i].wind.speed,
-                humidity: data.list[i].main.humidity,
-                weather: data.list[i].weather[0].main,
+createTodayCard();
+
+          return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${APIKey}`)
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              const length = data.list.length;
+              console.log(length);
+
+              for (let i = 0; i < length; i++) {
+                const time = data.list[0].dt_txt.split(" ").pop();
+                if (data.list[i].dt_txt.includes(time)) {
+                  const weather = {
+                    name: data.city.name,
+                    date: data.list[i].dt_txt,
+                    temp: data.list[i].main.temp,
+                    wind: data.list[i].wind.speed,
+                    humidity: data.list[i].main.humidity,
+                    weather: data.list[i].weather[0].main,
+
+                  }
+
+                  // const cityForecast = cityForecast + weather || []  ; 
+                  // cityForecast.push(weather);
+                  // console.log(cityForecast);
+
+                  const cityForecast = JSON.parse(localStorage.getItem("forecast")) || [];
+                  cityForecast.push(weather);
+                  localStorage.setItem("forecast", JSON.stringify(cityForecast));
+                  // console.log(weather);
+
+                  // return cityForecast;
+                }
+
+
+                // const today = dayjs().format('YYYY-MM-DD');
+                // console.log(typeof today + " " + today);
+                // const date = JSON.stringify(data.list[0].dt_txt.split(" ").slice(0, -1));
+                // console.log(typeof date + " " + date);
+                // if (data.list[i].dt_txt.includes(today)) {
+
+
+                //   if (data.list[i]) {
+                //   console.log("IF 0 Funciona")
+                //   const dayWeather = document.getElementById('ciudad')
+                //   const weatherCard = document.createElement('div');
+                //   const cityNameEl = document.createElement('h2'); 
+                //   const tempEl = document.createElement('p');
+                //   const windEl = document.createElement('p');
+                //   const humidityEl = document.createElement('p');
+
+                //   cityNameEl.textContent = data.city.name;
+                //   tempEl.textContent = data.list[0].main.temp;
+                //   windEl.textContent = data.list[0].wind.speed;
+                //   humidityEl.textContent = data.list[0].main.humidity;
+
+                //   weatherCard.appendChild(cityNameEl);
+                //   weatherCard.appendChild(tempEl);
+                //   weatherCard.appendChild(windEl);
+                //   weatherCard.appendChild(humidityEl);
+                //   dayWeather.appendChild(weatherCard);
+
+                // } else {
+                //   const weatherCard = document.createElement('div');
+                //   const cityNameEl = document.createElement('h2');
+                //   const tempEl = document.createElement('p');
+                //   const windEl = document.createElement('p');
+                //   const humidityEl = document.createElement('p');
+
+                //   cityNameEl.textContent = data.city.name;
+                //   tempEl.textContent = data.list[i].main.temp;
+                //   windEl.textContent = data.list[i].wind.speed;
+                //   humidityEl.textContent = data.list[i].main.humidity;
+
+                //   weatherCard.append(cityNameEl);
+                //   weatherCard.append(tempEl);
+                //   weatherCard.append(windEl);
+                //   weatherCard.append(humidityEl);
+
+                // }
 
               }
+              const cityForecast = JSON.parse(localStorage.getItem("forecast"));
+              const todayWeather = JSON.parse(localStorage.getItem("today"));
 
-              // const cityForecast = cityForecast + weather || []  ; 
-              // cityForecast.push(weather);
-              // console.log(cityForecast);
+              const cityData = {
+                name: data.city.name,
+                lat: data.city.coord.lat,
+                lon: data.city.coord.lon,
+                todayWeather: todayWeather,
+                cityForecast: cityForecast,
 
-              const cityForecast = JSON.parse(localStorage.getItem("forecast")) || [];
-              cityForecast.push(weather);
-              localStorage.setItem("forecast", JSON.stringify(cityForecast));
-              // console.log(weather);
+              }
+              // localStorage.clear('forecast');
+              localStorage.removeItem('forecast');
+              console.log(cityData);
 
-              // return cityForecast;
-            }
+              // const cityForecast = JSON.parse(localStorage.getItem("forecast")) || [];
+              const cities = JSON.parse(localStorage.getItem("cities")) || [];
+              cities.push(cityData);
+              localStorage.setItem("cities", JSON.stringify(cities));
+              console.log(cities)
+              createForecast();
 
-
-            // const today = dayjs().format('YYYY-MM-DD');
-            // console.log(typeof today + " " + today);
-            // const date = JSON.stringify(data.list[0].dt_txt.split(" ").slice(0, -1));
-            // console.log(typeof date + " " + date);
-            // if (data.list[i].dt_txt.includes(today)) {
-
-
-            //   if (data.list[i]) {
-            //   console.log("IF 0 Funciona")
-            //   const dayWeather = document.getElementById('ciudad')
-            //   const weatherCard = document.createElement('div');
-            //   const cityNameEl = document.createElement('h2'); 
-            //   const tempEl = document.createElement('p');
-            //   const windEl = document.createElement('p');
-            //   const humidityEl = document.createElement('p');
-
-            //   cityNameEl.textContent = data.city.name;
-            //   tempEl.textContent = data.list[0].main.temp;
-            //   windEl.textContent = data.list[0].wind.speed;
-            //   humidityEl.textContent = data.list[0].main.humidity;
-
-            //   weatherCard.appendChild(cityNameEl);
-            //   weatherCard.appendChild(tempEl);
-            //   weatherCard.appendChild(windEl);
-            //   weatherCard.appendChild(humidityEl);
-            //   dayWeather.appendChild(weatherCard);
-
-            // } else {
-            //   const weatherCard = document.createElement('div');
-            //   const cityNameEl = document.createElement('h2');
-            //   const tempEl = document.createElement('p');
-            //   const windEl = document.createElement('p');
-            //   const humidityEl = document.createElement('p');
-
-            //   cityNameEl.textContent = data.city.name;
-            //   tempEl.textContent = data.list[i].main.temp;
-            //   windEl.textContent = data.list[i].wind.speed;
-            //   humidityEl.textContent = data.list[i].main.humidity;
-
-            //   weatherCard.append(cityNameEl);
-            //   weatherCard.append(tempEl);
-            //   weatherCard.append(windEl);
-            //   weatherCard.append(humidityEl);
-
-            // }
-
-          }
-          const cityForecast = JSON.parse(localStorage.getItem("forecast"));
-
-          const cityData = {
-            name: data.city.name,
-            lat: data.city.coord.lat,
-            lon: data.city.coord.lon,
-            cityForecast: cityForecast,
- 
-
-          }
-          // localStorage.clear('forecast');
-          localStorage.removeItem('forecast');
-          console.log(cityData);
-
-          // const cityForecast = JSON.parse(localStorage.getItem("forecast")) || [];
-          const cities = JSON.parse(localStorage.getItem("cities")) || [];
-          cities.push(cityData);
-          localStorage.setItem("cities", JSON.stringify(cities));
-          console.log(cities)
-          createCard3();
-
+            });
+          });
         });
 
-    });
+      // console.log(JSON.parse(localStorage.getItem("cities")));
 
-  // console.log(JSON.parse(localStorage.getItem("cities")));
-
-}
+    }
 
 //Se me ocurre que puede tomar los ultimos 5 datos de local storage y renderizarlos
 //o renderizar el nombre de la ciudad
-
-function createCard3() {
-
-  const cities = JSON.parse(localStorage.getItem("cities")) || [];
-  console.log("Lista de ciudades")
-  console.log(cities);
-
-  const last = cities.pop();
-  console.log(last);
-
-  const dayWeather = document.getElementById('ciudad')
-  const forecast = document.getElementById('forecast')
-  const weatherCard = document.createElement('div');
-  const cityNameEl = document.createElement('h2');
-  const tempEl = document.createElement('p');
-  const windEl = document.createElement('p');
-  const humidityEl = document.createElement('p');
-  const today = dayjs().format('YYYY-MM-DD');
-
-  cityNameEl.textContent = searchInput.value + " " + today;
-  tempEl.textContent = last.cityForecast[0].temp;
-  windEl.textContent = last.cityForecast[0].wind;
-  humidityEl.textContent = last.cityForecast[0].humidity;
-
-  weatherCard.appendChild(cityNameEl);
-  weatherCard.appendChild(tempEl);
-  weatherCard.appendChild(windEl);
-  weatherCard.appendChild(humidityEl);
-  dayWeather.appendChild(weatherCard);
-
-// Limpiar la carta anterior
+function createTodayCard() {
+const today = JSON.parse(localStorage.getItem("today")) || [];
+console.log(today)
 }
+
+
+
+function createForecast() {
+
+        const cities = JSON.parse(localStorage.getItem("cities")) || [];
+        console.log("Lista de ciudades")
+        console.log(cities);
+
+        const last = cities.pop();
+        console.log(last);
+
+        const dayWeather = document.getElementById('ciudad')
+        const forecast = document.getElementById('forecast')
+        const weatherCard = document.createElement('div');
+        const cityNameEl = document.createElement('h2');
+        const tempEl = document.createElement('p');
+        const windEl = document.createElement('p');
+        const humidityEl = document.createElement('p');
+        // const today = dayjs().format('YYYY-MM-DD');
+
+        cityNameEl.textContent = searchInput.value + " " + last.cityForecast[0].date.split(" ").slice(0, -1);
+        tempEl.textContent = last.cityForecast[0].temp;
+        windEl.textContent = last.cityForecast[0].wind;
+        humidityEl.textContent = last.cityForecast[0].humidity;
+
+        weatherCard.appendChild(cityNameEl);
+        weatherCard.appendChild(tempEl);
+        weatherCard.appendChild(windEl);
+        weatherCard.appendChild(humidityEl);
+        dayWeather.appendChild(weatherCard);
+
+
+
+        // Limpiar la carta anterior
+      }
 
 
 // function createForecast(data) {
@@ -275,64 +303,61 @@ function createCard3() {
 
 function createCard2(card) {
 
-  // const today = dayjs().format('YYYY-MM-DD');
-  //           console.log(typeof today + " " + today);
-  //           // const date = JSON.stringify(data.list[0].dt_txt.split(" ").slice(0, -1));
-  //           // console.log(typeof date + " " + date);
+        // const today = dayjs().format('YYYY-MM-DD');
+        //           console.log(typeof today + " " + today);
+        //           // const date = JSON.stringify(data.list[0].dt_txt.split(" ").slice(0, -1));
+        //           // console.log(typeof date + " " + date);
 
-  //           if (data.list[i].dt_txt.includes(today)) {
-  //             if (data.list[0]) {
-  //             console.log("IF 0 Funciona")
-  // const dayWeather = document.getElementById('ciudad')
-  const weatherCard = document.createElement('div');
-  const cityNameEl = document.createElement('h2');
-  const tempEl = document.createElement('p');
-  const windEl = document.createElement('p');
-  const humidityEl = document.createElement('p');
+        //           if (data.list[i].dt_txt.includes(today)) {
+        //             if (data.list[0]) {
+        //             console.log("IF 0 Funciona")
+        // const dayWeather = document.getElementById('ciudad')
+        const weatherCard = document.createElement('div');
+        const cityNameEl = document.createElement('h2');
+        const tempEl = document.createElement('p');
+        const windEl = document.createElement('p');
+        const humidityEl = document.createElement('p');
 
-  cityNameEl.textContent = card.city.name;
-  tempEl.textContent = card.list[0].main.temp;
-  windEl.textContent = card.list[0].wind.speed;
-  humidityEl.textContent = card.list[0].main.humidity;
+        cityNameEl.textContent = card.city.name;
+        tempEl.textContent = card.list[0].main.temp;
+        windEl.textContent = card.list[0].wind.speed;
+        humidityEl.textContent = card.list[0].main.humidity;
 
-  weatherCard.appendChild(cityNameEl);
-  weatherCard.appendChild(tempEl);
-  weatherCard.appendChild(windEl);
-  weatherCard.appendChild(humidityEl);
-  // dayWeather.appendChild(weatherCard);
-
-
+        weatherCard.appendChild(cityNameEl);
+        weatherCard.appendChild(tempEl);
+        weatherCard.appendChild(windEl);
+        weatherCard.appendChild(humidityEl);
+        // dayWeather.appendChild(weatherCard);
 
 
 
 
-  // return weatherCard;
 
 
-}
+        // return weatherCard;
+
+
+      }
 
 function renderWeatherCards() {
-  const forecast = JSON.parse(localStorage.getItem("forecast")) || [];
-  const dayWeatherEl = document.getElementById('ciudad');
-  const forecastEL = document.getElementById('forecastCards')
+        const forecast = JSON.parse(localStorage.getItem("forecast")) || [];
+        const dayWeatherEl = document.getElementById('ciudad');
+        const forecastEL = document.getElementById('forecastCards')
 
 
-  for (let i = 0; i < forecast.length; i++) {
-    if (forecast.list[i].dt_txt === "0") {
-      dayWeatherEl.append(createCard2(card));
-    } else {
-      forecastEL.append(createCard2(card));
-    }
-
-
-
+        for (let i = 0; i < forecast.length; i++) {
+          if (forecast.list[i].dt_txt === "0") {
+            dayWeatherEl.append(createCard2(card));
+          } else {
+            forecastEL.append(createCard2(card));
+          }
 
 
 
-  }
 
 
 
+        }
 
 
 
@@ -341,7 +366,10 @@ function renderWeatherCards() {
 
 
 
-}
+
+
+
+      }
 
 
 // function createCard(data) {
