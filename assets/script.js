@@ -132,6 +132,8 @@ function getWeatherGOD() {
                 temp: data.list[i].main.temp,
                 wind: data.list[i].wind.speed,
                 humidity: data.list[i].main.humidity,
+                weather: data.list[i].weather[0].main,
+
               }
 
               // const cityForecast = cityForecast + weather || []  ; 
@@ -201,6 +203,7 @@ function getWeatherGOD() {
             lat: data.city.coord.lat,
             lon: data.city.coord.lon,
             cityForecast: cityForecast,
+ 
 
           }
           // localStorage.clear('forecast');
@@ -235,13 +238,15 @@ function createCard3() {
   console.log(last);
 
   const dayWeather = document.getElementById('ciudad')
+  const forecast = document.getElementById('forecast')
   const weatherCard = document.createElement('div');
   const cityNameEl = document.createElement('h2');
   const tempEl = document.createElement('p');
   const windEl = document.createElement('p');
   const humidityEl = document.createElement('p');
+  const today = dayjs().format('YYYY-MM-DD');
 
-  cityNameEl.textContent = last.name;
+  cityNameEl.textContent = searchInput.value + " " + today;
   tempEl.textContent = last.cityForecast[0].temp;
   windEl.textContent = last.cityForecast[0].wind;
   humidityEl.textContent = last.cityForecast[0].humidity;
@@ -296,7 +301,12 @@ function createCard2(card) {
   weatherCard.appendChild(humidityEl);
   // dayWeather.appendChild(weatherCard);
 
-  return weatherCard;
+
+
+
+
+
+  // return weatherCard;
 
 
 }
