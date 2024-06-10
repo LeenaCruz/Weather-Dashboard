@@ -99,7 +99,7 @@ function getWeatherGOD() {
 
 
   const city = ciudadInput.value;
-  fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${APIKey}`)
+  fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${APIKey}&units=imperial`)
     .then(response => response.json())
     .then(data => {
       console.log(data);
@@ -116,7 +116,7 @@ function getWeatherGOD() {
       localStorage.setItem("coordinates", JSON.stringify(cityList));
       // localStorage.setItem("coordinates", JSON.stringify(coordinates));
       console.log(cityList);
-      return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${APIKey}`)
+      return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${APIKey}&units=imperial`)
         .then(response => response.json())
         .then(data => {
           console.log(data);
@@ -139,7 +139,7 @@ console.log(dateTime)
 
 createTodayCard();
 
-          return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${APIKey}`)
+          return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${APIKey}&units=imperial`)
             .then(response => response.json())
             .then(data => {
               console.log(data);
@@ -277,8 +277,9 @@ function addToHistory () {
   const historyEl = document.getElementById('results');
   
   const cityEl = document.createElement('div');
-  const cityNameEl = document.createElement('h2');
+  const cityNameEl = document.createElement('button');
   
+cityNameEl.setAttribute("class", "button");
   cityNameEl.textContent= lastCity.name,
   
   cityEl.append(cityNameEl);
@@ -295,7 +296,7 @@ function createTodayCard() {
 
 const today = JSON.parse(localStorage.getItem("today")) || [];
 console.log(today)
-const dayWeather = document.getElementById('ciudad')
+const dayWeather = document.getElementById('ciudadCards')
 const weatherCard = document.createElement('div');
 const cityNameEl = document.createElement('h2');
 const tempEl = document.createElement('p');
@@ -306,9 +307,11 @@ const humidityEl = document.createElement('p');
 dayWeather.innerHTML = " ";
 
 cityNameEl.textContent = today[0].name + " " + today[0].date;
-tempEl.textContent = today[0].temp;
-windEl.textContent = today[0].wind;
-humidityEl.textContent = today[0].humidity;
+tempEl.textContent = "Temp:" + " " + today[0].temp + " °F";
+windEl.textContent = "Wind:" + " " + today[0].wind;
+humidityEl.textContent = "Humidity:" + " " + today[0].humidity;
+
+weatherCard.setAttribute("class", "dayWeather");
 
 weatherCard.appendChild(cityNameEl);
 weatherCard.appendChild(tempEl);
@@ -333,7 +336,7 @@ function createForecast() {
 const cityForecast = last.cityForecast;
 console.log (cityForecast)
 
-        const forecast = document.getElementById('forecast')
+        const forecast = document.getElementById('forecastCards')
         forecast.innerHTML = " ";
         for (let i = 0; i < cityForecast.length; i ++) {
 
@@ -346,9 +349,11 @@ console.log (cityForecast)
 
         // cityNameEl.textContent = searchInput.value + " " + last.cityForecast[0].date.split(" ").slice(0, -1);
         cityNameEl.textContent = cityForecast[i].name;
-        tempEl.textContent = cityForecast[i].temp;
-        windEl.textContent = cityForecast[i].wind;
-        humidityEl.textContent = cityForecast[i].humidity;
+        tempEl.textContent = "Temp:" + " " + cityForecast[i].temp + " °F";
+        windEl.textContent = "Wind:" + " " +cityForecast[i].wind + " MPH";
+        humidityEl.textContent = "Humidity:" + " " + cityForecast[i].humidity + " %";
+
+weatherCard.setAttribute("class", "cards");
 
         weatherCard.appendChild(cityNameEl);
         weatherCard.appendChild(tempEl);
