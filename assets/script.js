@@ -130,8 +130,8 @@ function createTodayCard() {
 
   cityNameEl.textContent = today[0].name + " " + today[0].date;
   tempEl.textContent = "Temp:" + " " + today[0].temp + " °F";
-  windEl.textContent = "Wind:" + " " + today[0].wind;
-  humidityEl.textContent = "Humidity:" + " " + today[0].humidity;
+  windEl.textContent = "Wind:" + " " + today[0].wind + " MPH";
+  humidityEl.textContent = "Humidity:" + " " + today[0].humidity + " %";
 
   weatherCard.setAttribute("class", "dayWeather");
 
