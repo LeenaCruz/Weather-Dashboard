@@ -254,6 +254,25 @@ createTodayCard();
 function createTodayCard() {
 const today = JSON.parse(localStorage.getItem("today")) || [];
 console.log(today)
+const dayWeather = document.getElementById('ciudad')
+const weatherCard = document.createElement('div');
+const cityNameEl = document.createElement('h2');
+const tempEl = document.createElement('p');
+const windEl = document.createElement('p');
+const humidityEl = document.createElement('p');
+// const today = dayjs().format('YYYY-MM-DD');
+
+cityNameEl.textContent = today[0].name + " " + today[0].date;
+tempEl.textContent = today[0].temp;
+windEl.textContent = today[0].wind;
+humidityEl.textContent = today[0].humidity;
+
+weatherCard.appendChild(cityNameEl);
+weatherCard.appendChild(tempEl);
+weatherCard.appendChild(windEl);
+weatherCard.appendChild(humidityEl);
+dayWeather.appendChild(weatherCard);
+
 }
 
 
@@ -264,10 +283,10 @@ function createForecast() {
         console.log("Lista de ciudades")
         console.log(cities);
 
+        // Renderizar todas las cartas, hacer un for of  o for loop
         const last = cities.pop();
         console.log(last);
 
-        const dayWeather = document.getElementById('ciudad')
         const forecast = document.getElementById('forecast')
         const weatherCard = document.createElement('div');
         const cityNameEl = document.createElement('h2');
@@ -285,7 +304,7 @@ function createForecast() {
         weatherCard.appendChild(tempEl);
         weatherCard.appendChild(windEl);
         weatherCard.appendChild(humidityEl);
-        dayWeather.appendChild(weatherCard);
+        forecast.appendChild(weatherCard);
 
 
 
