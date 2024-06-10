@@ -178,15 +178,7 @@ const rain = [500, 501, 502, 503, 504];
 const freezingRain = [501];
 const heavyRain = [520, 521, 522, 531];
 const snow = [600, 601, 602, 611,612, 613, 615,616,620,621,622];
-const mist = [701];
-const smoke = [711];
-const haze = [721];
-const dust = [732, 761];
-const fog = [741];
-const sand =[751];
-const ash = [762];
-const squall = [771];
-const tornado = [781];
+const atmosphere = [701,711,721,731,741,751,761,762,771,781];
 const clear = [800]; 
 const clouds = [801,802,803,804];
 
@@ -202,26 +194,8 @@ const clouds = [801,802,803,804];
       iconEl.setAttribute("class", "heavyRain");
     } else if (snow.includes(weatherClass)) {
       iconEl.setAttribute("class", "snow");
-    } else if (mist.includes(weatherClass)){
-      iconEl.setAttribute("class", "mist");
-    }else if (smoke.includes(weatherClass)){
-      iconEl.setAttribute("class", "smoke");
-    }else if (haze.includes(weatherClass)){
-      iconEl.setAttribute("class", "haze");
-    }else if (dust.includes(weatherClass)){
-      iconEl.setAttribute("class", "dust");
-    }else if (fog.includes(weatherClass)){
-      iconEl.setAttribute("class", "fog");
-    }else if (sand.includes(weatherClass)){
-      iconEl.setAttribute("class", "sand");
-    }else if (dust.includes(weatherClass)){
-      iconEl.setAttribute("class", "dust");
-    }else if (ash.includes(weatherClass)){
-      iconEl.setAttribute("class", "ash");
-    }else if (squall.includes(weatherClass)){
-      iconEl.setAttribute("class", "squall");
-    }else if (tornado.includes(weatherClass)){
-      iconEl.setAttribute("class", "tornado");
+    } else if (atmosphere.includes(weatherClass)){
+      iconEl.setAttribute("class", "atmosphere");
     }else if (clear.includes(weatherClass)){
       iconEl.setAttribute("class", "clear");
     }else if (clouds.includes(weatherClass)){

@@ -187,3 +187,20 @@ append a la carta
     content:url(http://openweathermap.org/img/wn/02d@2x.png);
     height: 50px;
  }
+
+ .rain {
+    content:url(http://openweathermap.org/img/wn/10d@2x.png);
+    height: 50px;
+ }
+ .drizzle {
+    content:url(http://openweathermap.org/img/wn/09d@2x.png);
+    height: 50px;
+ }
+ .snow {
+    content:url(http://openweathermap.org/img/wn/13d@2x.png);
+    height: 50px;
+ }
+ .atmosphere {
+    content:url(http://openweathermap.org/img/wn/13d@2x.png);
+    height: 50px;
+ }
