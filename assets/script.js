@@ -240,6 +240,8 @@ createTodayCard();
               localStorage.setItem("cities", JSON.stringify(cities));
               console.log(cities)
               createForecast();
+              // showHistory();
+              addToHistory();
 
             });
           });
@@ -249,9 +251,48 @@ createTodayCard();
 
     }
 
+// function showHistory () {
+// const citiesHistory = JSON.parse(localStorage.getItem("cities")) || [];
+// console.log (citiesHistory);
+// const historyEl = document.getElementById('results');
+
+// for (let i = 0; i < citiesHistory.length; i ++) {
+
+// const cityEl = document.createElement('div');
+// const cityNameEl = document.createElement('h2');
+
+// cityNameEl.textContent= citiesHistory[i].name,
+
+// cityEl.append(cityNameEl);
+// historyEl.append(cityEl);
+// }
+
+
+// }
+
+function addToHistory () {
+  const citiesHistory = JSON.parse(localStorage.getItem("cities")) || [];
+  console.log (citiesHistory);
+  const lastCity = citiesHistory.pop();
+  const historyEl = document.getElementById('results');
+  
+  const cityEl = document.createElement('div');
+  const cityNameEl = document.createElement('h2');
+  
+  cityNameEl.textContent= lastCity.name,
+  
+  cityEl.append(cityNameEl);
+  historyEl.append(cityEl);
+  }
+  
+  
+
+
 //Se me ocurre que puede tomar los ultimos 5 datos de local storage y renderizarlos
 //o renderizar el nombre de la ciudad
 function createTodayCard() {
+
+
 const today = JSON.parse(localStorage.getItem("today")) || [];
 console.log(today)
 const dayWeather = document.getElementById('ciudad')
@@ -261,6 +302,8 @@ const tempEl = document.createElement('p');
 const windEl = document.createElement('p');
 const humidityEl = document.createElement('p');
 // const today = dayjs().format('YYYY-MM-DD');
+
+dayWeather.innerHTML = " ";
 
 cityNameEl.textContent = today[0].name + " " + today[0].date;
 tempEl.textContent = today[0].temp;
@@ -287,7 +330,13 @@ function createForecast() {
         const last = cities.pop();
         console.log(last);
 
+const cityForecast = last.cityForecast;
+console.log (cityForecast)
+
         const forecast = document.getElementById('forecast')
+        forecast.innerHTML = " ";
+        for (let i = 0; i < cityForecast.length; i ++) {
+
         const weatherCard = document.createElement('div');
         const cityNameEl = document.createElement('h2');
         const tempEl = document.createElement('p');
@@ -295,17 +344,18 @@ function createForecast() {
         const humidityEl = document.createElement('p');
         // const today = dayjs().format('YYYY-MM-DD');
 
-        cityNameEl.textContent = searchInput.value + " " + last.cityForecast[0].date.split(" ").slice(0, -1);
-        tempEl.textContent = last.cityForecast[0].temp;
-        windEl.textContent = last.cityForecast[0].wind;
-        humidityEl.textContent = last.cityForecast[0].humidity;
+        // cityNameEl.textContent = searchInput.value + " " + last.cityForecast[0].date.split(" ").slice(0, -1);
+        cityNameEl.textContent = cityForecast[i].name;
+        tempEl.textContent = cityForecast[i].temp;
+        windEl.textContent = cityForecast[i].wind;
+        humidityEl.textContent = cityForecast[i].humidity;
 
         weatherCard.appendChild(cityNameEl);
         weatherCard.appendChild(tempEl);
         weatherCard.appendChild(windEl);
         weatherCard.appendChild(humidityEl);
         forecast.appendChild(weatherCard);
-
+      }
 
 
         // Limpiar la carta anterior
