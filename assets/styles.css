@@ -170,3 +170,20 @@ si data.weather == sunny, cloud, etc
 img source o textcontet el div del icono 
 append a la carta
  */
+
+
+ .thunderstorm {
+    content:url(http://openweathermap.org/img/wn/11d@2x.png);
+    height: 50px;
+ }
+ 
+ .clear {
+    content:url(http://openweathermap.org/img/wn/01d@2x.png);
+    height: 50px;
+  
+ }
+
+ .clouds {
+    content:url(http://openweathermap.org/img/wn/02d@2x.png);
+    height: 50px;
+ }
