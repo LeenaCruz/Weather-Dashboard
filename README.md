@@ -24,6 +24,7 @@ THEN I am again presented with current and future conditions for that city
 
 ```
 ## Mock-Up
+![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for selected City](/assets/images/WeatherLeena.gif)
 
 ## Deployed App
 [Live URL](https://leenacruz.github.io/Weather-Dashboard/)
@@ -33,3 +34,7 @@ THEN I am again presented with current and future conditions for that city
 
 Neil - Adding functionality to history buttons so that I can select them and compare them. 
 
+## Upcoming Features
+-- Make clean code
+-- Reutilize functions 
+-- Responsive 

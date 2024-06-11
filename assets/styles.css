@@ -173,38 +173,38 @@ append a la carta
 
 
  .thunderstorm {
-    content:url(http://openweathermap.org/img/wn/11d@2x.png);
+    content:url(https://openweathermap.org/img/wn/11d@2x.png);
     height: 50px;
  }
  
  .clear {
-    content:url(http://openweathermap.org/img/wn/01d@2x.png);
+    content:url(https://openweathermap.org/img/wn/01d@2x.png);
     height: 50px;
   
  }
 
  .clouds {
-    content:url(http://openweathermap.org/img/wn/02d@2x.png);
+    content:url(https://openweathermap.org/img/wn/02d@2x.png);
     height: 50px;
  }
 
  .rain {
-    content:url(http://openweathermap.org/img/wn/10d@2x.png);
+    content:url(https://openweathermap.org/img/wn/10d@2x.png);
     height: 50px;
  }
  .drizzle {
-    content:url(http://openweathermap.org/img/wn/09d@2x.png);
+    content:url(https://openweathermap.org/img/wn/09d@2x.png);
     height: 50px;
  }
  .snow {
-    content:url(http://openweathermap.org/img/wn/13d@2x.png);
+    content:url(https://openweathermap.org/img/wn/13d@2x.png);
     height: 50px;
  }
  .atmosphere {
-    content:url(http://openweathermap.org/img/wn/13d@2x.png);
+    content:url(https://openweathermap.org/img/wn/13d@2x.png);
     height: 50px;
  }
  
  .history {
-    
+
  }
