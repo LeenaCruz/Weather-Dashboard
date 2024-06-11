@@ -54,7 +54,7 @@ function getWeatherGOD() {
 
           createTodayCard();
 
-          return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${APIKey}&units=imperial`)
+          return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${APIKey}&units=imperial`)
             .then(response => response.json())
             .then(data => {
               console.log(data);
