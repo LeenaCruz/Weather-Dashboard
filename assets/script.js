@@ -5,7 +5,6 @@ const APIKey = '4527ed5e22cd18768af91f242a69b9a2';
 function generateId() {
   // Generates a random number between 0 an 1, multiplies it by 100000000 then adds 10000000 to generate a number between 10000000 and 10999999.
   const random = Math.floor(Math.random() * 100000000) + 10000000;
-  console.log(random);
   return random;
 }
 function getWeatherGOD() {
@@ -23,14 +22,12 @@ function getWeatherGOD() {
       const cityList = JSON.parse(localStorage.getItem("coordinates")) || [];
       cityList.push(coordinates);
       localStorage.setItem("coordinates", JSON.stringify(cityList));
-      console.log(cityList);
       return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${APIKey}&units=imperial`)
         .then(response => response.json())
         .then(data => {
           console.log(data);
           const date = data.dt * 1000;
           const dateTime = dayjs(date).format("YYYY-MM-DD");
-          console.log(dateTime);
           const today = {
             name: data.name,
             date: dateTime,
@@ -82,7 +79,6 @@ function getWeatherGOD() {
               const cities = JSON.parse(localStorage.getItem("cities")) || [];
               cities.push(cityData);
               localStorage.setItem("cities", JSON.stringify(cities));
-              console.log(cities)
               createForecast();
               addToHistory();
 
@@ -93,7 +89,6 @@ function getWeatherGOD() {
 // Create and append history to aside.
 function addToHistory() {
   const citiesHistory = JSON.parse(localStorage.getItem("cities")) || [];
-  console.log(citiesHistory);
   const lastCity = citiesHistory.pop();
   const historyEl = document.getElementById('results');
   const cityEl = document.createElement('div');
@@ -206,7 +201,6 @@ function addToHistory() {
 
 function createTodayCard() {
   const today = JSON.parse(localStorage.getItem("today")) || [];
-  console.log(today)
   const dayWeather = document.getElementById('ciudadCards')
   const weatherCard = document.createElement('div');
   const cityNameEl = document.createElement('h2');
@@ -260,8 +254,6 @@ function createTodayCard() {
 
 function createForecast() {
   const cities = JSON.parse(localStorage.getItem("cities")) || [];
-  console.log("Lista de ciudades")
-  console.log(cities);
   const last = cities.pop();
   const cityForecast = last.cityForecast;
   const forecast = document.getElementById('forecastCards')
