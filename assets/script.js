@@ -128,20 +128,111 @@ function addToHistory() {
     cityEl.append(cityNameEl);
   historyEl.append(cityEl);
 
-  return cityNameEl;
+  // return cityNameEl;
+
+  cityNameEl.addEventListener('click', function () {
+    console.log(this.id);
+
+    const cityList = JSON.parse(localStorage.getItem("cities")) || [];
+//     console.log(typeof cityList[0].id);
+// console.log(typeof cityNameEl.id)
+for (let i= 0; i < cityList.length; i++) {
+  console.log("yay")
+  if (parseInt(cityNameEl.id) === cityList[i].id){
+    console.log("funciona")
+    console.log(cityList[i].cityForecast);
+
+    const dayWeather = document.getElementById('ciudadCards')
+    const weatherCard = document.createElement('div');
+    const cityNameEl = document.createElement('h2');
+    const tempEl = document.createElement('p');
+    const windEl = document.createElement('p');
+    const humidityEl = document.createElement('p');
+
+dayWeather.innerHTML = " ";
+  
+    cityNameEl.textContent = cityList[i].name + " " + cityList[i].todayWeather[0].date;
+    tempEl.textContent = "Temp:" + " " + cityList[i].todayWeather[0].temp + " °F";
+    windEl.textContent = "Wind:" + " " + cityList[i].todayWeather[0].wind + " MPH";
+    humidityEl.textContent = "Humidity:" + " " + cityList[i].todayWeather[0].humidity + " %";
+  
+    weatherCard.setAttribute("class", "dayWeather");
+  
+    weatherCard.appendChild(cityNameEl);
+    weatherCard.appendChild(tempEl);
+    weatherCard.appendChild(windEl);
+    weatherCard.appendChild(humidityEl);
+    dayWeather.appendChild(weatherCard);
+
+    const cityForecast = cityList[i].cityForecast;
+    const forecast = document.getElementById('forecastCards')
+    forecast.innerHTML = " ";
+    for (let i = 0; i < cityForecast.length; i++) {
+  
+      const weatherCard = document.createElement('div');
+      const cityNameEl = document.createElement('h2');
+      const iconEl = document.createElement('div');
+      const tempEl = document.createElement('p');
+      const windEl = document.createElement('p');
+      const humidityEl = document.createElement('p');
+  
+      const weatherClass = cityForecast[i].weatherId;
+
+      cityNameEl.textContent = cityForecast[i].date.split(" ").slice(0, -1);
+      tempEl.textContent = "Temp:" + " " + cityForecast[i].temp + " °F";
+      windEl.textContent = "Wind:" + " " + cityForecast[i].wind + " MPH";
+      humidityEl.textContent = "Humidity:" + " " + cityForecast[i].humidity + " %";
+  
+      const thunderstorm = [200, 201, 202, 210, 211, 212, 221, 230, 231, 232];
+      const drizzle = [300, 301, 302, 310, 311, 312, 313, 314, 321];
+      const rain = [500, 501, 502, 503, 504];
+      const freezingRain = [501];
+      const heavyRain = [520, 521, 522, 531];
+      const snow = [600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622];
+      const atmosphere = [701, 711, 721, 731, 741, 751, 761, 762, 771, 781];
+      const clear = [800];
+      const clouds = [801, 802, 803, 804];
+  
+      if (thunderstorm.includes(weatherClass)) {
+        iconEl.setAttribute("class", "thunderstorm");
+      } else if (drizzle.includes(weatherClass)) {
+        iconEl.setAttribute("class", "drizzle");
+      } else if (rain.includes(weatherClass)) {
+        iconEl.setAttribute("class", "rain");
+      } else if (freezingRain.includes(weatherClass)) {
+        iconEl.setAttribute("class", "freezingRain");
+      } else if (heavyRain.includes(weatherClass)) {
+        iconEl.setAttribute("class", "heavyRain");
+      } else if (snow.includes(weatherClass)) {
+        iconEl.setAttribute("class", "snow");
+      } else if (atmosphere.includes(weatherClass)) {
+        iconEl.setAttribute("class", "atmosphere");
+      } else if (clear.includes(weatherClass)) {
+        iconEl.setAttribute("class", "clear");
+      } else if (clouds.includes(weatherClass)) {
+        iconEl.setAttribute("class", "clouds");
+      }
+  
+      weatherCard.setAttribute("class", "cards");
+  
+      weatherCard.appendChild(cityNameEl);
+      weatherCard.appendChild(iconEl);
+      weatherCard.appendChild(tempEl);
+      weatherCard.appendChild(windEl);
+      weatherCard.appendChild(humidityEl);
+      forecast.appendChild(weatherCard);
+    }
+
+
+  }
+}
+
+  });
 
 }
 
-function showForecast() {
-const id = addToHistory;
-const realId = id.id;
-console.log(realId)
-console.log (id);
-  console.log("Si funciono")
 
 
-
-}
 
 
 function createTodayCard() {
@@ -173,7 +264,7 @@ function createTodayCard() {
 function createForecast() {
 
   const cities = JSON.parse(localStorage.getItem("cities")) || [];
-  console.log("Lista de ciudades")
+  console.log("Lista de ciudades") 
   console.log(cities);
   const last = cities.pop();
   console.log(last);
@@ -250,6 +341,3 @@ const cityNameEl = document.getElementById('results');
 
 // cityNameEl.addEventListener('click', showForecast);
 
-cityNameEl.addEventListener('click', function () {
-  console.log(this.id);
-});
