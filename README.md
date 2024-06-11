@@ -37,4 +37,4 @@ Neil - Adding functionality to history buttons so that I can select them and com
 ## Upcoming Features
 -- Make clean code
 -- Reutilize functions 
--- Responsive 
+
