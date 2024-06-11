@@ -140,25 +140,57 @@ for (let i= 0; i < cityList.length; i++) {
   console.log("yay")
   if (parseInt(cityNameEl.id) === cityList[i].id){
     console.log("funciona")
+    console.log(cityList[i]);
     console.log(cityList[i].cityForecast);
 
     const dayWeather = document.getElementById('ciudadCards')
     const weatherCard = document.createElement('div');
     const cityNameEl = document.createElement('h2');
+    const iconEl = document.createElement('div');
     const tempEl = document.createElement('p');
     const windEl = document.createElement('p');
     const humidityEl = document.createElement('p');
-
+    
+    const weatherClass = cityList[i].todayWeather[0].weatherId;
 dayWeather.innerHTML = " ";
   
     cityNameEl.textContent = cityList[i].name + " " + cityList[i].todayWeather[0].date;
     tempEl.textContent = "Temp:" + " " + cityList[i].todayWeather[0].temp + " °F";
     windEl.textContent = "Wind:" + " " + cityList[i].todayWeather[0].wind + " MPH";
     humidityEl.textContent = "Humidity:" + " " + cityList[i].todayWeather[0].humidity + " %";
-  
+    const thunderstorm = [200, 201, 202, 210, 211, 212, 221, 230, 231, 232];
+    const drizzle = [300, 301, 302, 310, 311, 312, 313, 314, 321];
+    const rain = [500, 501, 502, 503, 504];
+    const freezingRain = [501];
+    const heavyRain = [520, 521, 522, 531];
+    const snow = [600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622];
+    const atmosphere = [701, 711, 721, 731, 741, 751, 761, 762, 771, 781];
+    const clear = [800];
+    const clouds = [801, 802, 803, 804];
+
+    if (thunderstorm.includes(weatherClass)) {
+      iconEl.setAttribute("class", "thunderstorm");
+    } else if (drizzle.includes(weatherClass)) {
+      iconEl.setAttribute("class", "drizzle");
+    } else if (rain.includes(weatherClass)) {
+      iconEl.setAttribute("class", "rain");
+    } else if (freezingRain.includes(weatherClass)) {
+      iconEl.setAttribute("class", "freezingRain");
+    } else if (heavyRain.includes(weatherClass)) {
+      iconEl.setAttribute("class", "heavyRain");
+    } else if (snow.includes(weatherClass)) {
+      iconEl.setAttribute("class", "snow");
+    } else if (atmosphere.includes(weatherClass)) {
+      iconEl.setAttribute("class", "atmosphere");
+    } else if (clear.includes(weatherClass)) {
+      iconEl.setAttribute("class", "clear");
+    } else if (clouds.includes(weatherClass)) {
+      iconEl.setAttribute("class", "clouds");
+    }
     weatherCard.setAttribute("class", "dayWeather");
   
     weatherCard.appendChild(cityNameEl);
+    weatherCard.appendChild(iconEl);
     weatherCard.appendChild(tempEl);
     weatherCard.appendChild(windEl);
     weatherCard.appendChild(humidityEl);
@@ -241,10 +273,12 @@ function createTodayCard() {
   const dayWeather = document.getElementById('ciudadCards')
   const weatherCard = document.createElement('div');
   const cityNameEl = document.createElement('h2');
+  const iconEl = document.createElement('div');
   const tempEl = document.createElement('p');
   const windEl = document.createElement('p');
   const humidityEl = document.createElement('p');
 
+  const weatherClass = today[0].weatherId;
   dayWeather.innerHTML = " ";
 
   cityNameEl.textContent = today[0].name + " " + today[0].date;
@@ -252,9 +286,40 @@ function createTodayCard() {
   windEl.textContent = "Wind:" + " " + today[0].wind + " MPH";
   humidityEl.textContent = "Humidity:" + " " + today[0].humidity + " %";
 
+  const thunderstorm = [200, 201, 202, 210, 211, 212, 221, 230, 231, 232];
+  const drizzle = [300, 301, 302, 310, 311, 312, 313, 314, 321];
+  const rain = [500, 501, 502, 503, 504];
+  const freezingRain = [501];
+  const heavyRain = [520, 521, 522, 531];
+  const snow = [600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622];
+  const atmosphere = [701, 711, 721, 731, 741, 751, 761, 762, 771, 781];
+  const clear = [800];
+  const clouds = [801, 802, 803, 804];
+
+  if (thunderstorm.includes(weatherClass)) {
+    iconEl.setAttribute("class", "thunderstorm");
+  } else if (drizzle.includes(weatherClass)) {
+    iconEl.setAttribute("class", "drizzle");
+  } else if (rain.includes(weatherClass)) {
+    iconEl.setAttribute("class", "rain");
+  } else if (freezingRain.includes(weatherClass)) {
+    iconEl.setAttribute("class", "freezingRain");
+  } else if (heavyRain.includes(weatherClass)) {
+    iconEl.setAttribute("class", "heavyRain");
+  } else if (snow.includes(weatherClass)) {
+    iconEl.setAttribute("class", "snow");
+  } else if (atmosphere.includes(weatherClass)) {
+    iconEl.setAttribute("class", "atmosphere");
+  } else if (clear.includes(weatherClass)) {
+    iconEl.setAttribute("class", "clear");
+  } else if (clouds.includes(weatherClass)) {
+    iconEl.setAttribute("class", "clouds");
+  }
+
   weatherCard.setAttribute("class", "dayWeather");
 
   weatherCard.appendChild(cityNameEl);
+  weatherCard.appendChild(iconEl);
   weatherCard.appendChild(tempEl);
   weatherCard.appendChild(windEl);
   weatherCard.appendChild(humidityEl);
