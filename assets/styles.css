@@ -4,28 +4,18 @@
     padding: 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-
-
 .container {
     display: flex;
     justify-content: space-between;
     height: 100vh;
 }
-
 .containerSearch {
-    /* border: 5px solid black; */
     display: flex;
     width: 20%;
-    /* height: 100vh; */
     justify-content: space-between;
     flex-direction: column;
-    /* min-height: 100vh; */
     align-content: baseline;
-    /* flex-direction: column; */
-    /* align-content:space-between; */
 }
-
 hr {
     width: 98%;
     justify-content: left;
@@ -33,19 +23,15 @@ hr {
     color: black;
     margin-top: 20px;
     margin-bottom: 10px;
-
 }
-
-
 .containerResults {
-    /* border: 5px solid black; */
     display: flex;
     justify-content: space-between;
     width: 80%;
     flex-direction: column;
+   
 
 }
-
 header {
     background-color: #c45263;
     align-content: center;
@@ -53,7 +39,6 @@ header {
     color: white;
     height: 60px;
 }
-
 #search {
     display: block;
     flex-direction: column;
@@ -61,10 +46,7 @@ header {
     padding: 10px;
     flex-wrap: wrap;
     height: 30%;
-
-
 }
-
 .searchCiudad {
     padding: 6px;
     font-size: 16px;
@@ -73,7 +55,6 @@ header {
     margin-bottom: 20px;
     width: 100%;
 }
-
 .search {
     background-color: #1381a2;
     color: white;
@@ -83,57 +64,39 @@ header {
     width: 100%;
     height: 40px;
 }
-
 #results {
     flex-wrap: wrap;
     display: inline-block;
     height: 70%;
     padding: 10px;
-
-
-    /* display: flex; */
-    /* justify-content: left; */
 }
-
-
-
-
 #ciudad {
 
     height: 30%;
     padding: 10px;
     margin-top: 20px;
-    /* align-content: center; */
-
 }
 
 #forecast {
     height: 70%;
     padding: 10px;
     flex-wrap: wrap;
-
-
-    /* display: block; */
 }
 
 #forecast h2 {
     margin-top: 10px;
 }
-
 .dayWeather {
     display: block;
 
     background-color: #ff9b99;
     border: 4px solid #aa4458;
     padding: 10px;
-    /* margin-left: 10px; */
-
 }
 
 .dayWeather h2 {
     margin-bottom: 10px;
 }
-
 .cards {
 
     background-color: #d7aeb2;
@@ -163,14 +126,6 @@ header {
     width: 100%;
     margin: 10px 0px;
 }
-
-
-/* crear un div para el icono weather 
-si data.weather == sunny, cloud, etc
-img source o textcontet el div del icono 
-append a la carta
- */
-
 
  .thunderstorm {
     content:url(https://openweathermap.org/img/wn/11d@2x.png);
@@ -205,6 +160,34 @@ append a la carta
     height: 50px;
  }
  
- .history {
+ @media screen and (max-width: 700px) {
 
+.container {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.containerSearch  {
+width: 100%;
+}
+
+.containerResults {
+    width: 100%;
+}
+
+#search {
+    width: 100%;
+    margin-bottom: 10px;
+    height: auto;
+}
+#containerResults {
+    width: 100%;
+  
+}
+
+
+.cards {
+    width: 100%;
+}
  }
