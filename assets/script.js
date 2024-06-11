@@ -3,6 +3,17 @@ const searchInput = document.getElementById('ciudadInput')
 const requestUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}';
 const APIKey = '4527ed5e22cd18768af91f242a69b9a2';
 
+function generateId() {
+  // Generates a random number between 0 an 1, multiplies it by 100000000 then adds 10000000 to generate a number between 10000000 and 10999999.
+  const random = Math.floor(Math.random() * 100000000) + 10000000;
+  console.log(random);
+  return random;
+}
+
+
+
+
+
 function getWeatherGOD() {
 
   const city = ciudadInput.value;
@@ -70,8 +81,9 @@ function getWeatherGOD() {
               }
               const cityForecast = JSON.parse(localStorage.getItem("forecast"));
               const todayWeather = JSON.parse(localStorage.getItem("today"));
-
+              const id = generateId();
               const cityData = {
+                id: id,
                 name: data.city.name,
                 lat: data.city.coord.lat,
                 lon: data.city.coord.lon,
@@ -89,7 +101,6 @@ function getWeatherGOD() {
               localStorage.setItem("cities", JSON.stringify(cities));
               console.log(cities)
               createForecast();
-              // showHistory();
               addToHistory();
 
             });
@@ -100,6 +111,7 @@ function getWeatherGOD() {
 
 }
 
+
 function addToHistory() {
   const citiesHistory = JSON.parse(localStorage.getItem("cities")) || [];
   console.log(citiesHistory);
@@ -109,12 +121,28 @@ function addToHistory() {
   const cityEl = document.createElement('div');
   const cityNameEl = document.createElement('button');
 
-  cityNameEl.setAttribute("class", "button");
+  cityNameEl.setAttribute("class", "button history");
+  cityNameEl.setAttribute("id", lastCity.id);
   cityNameEl.textContent = lastCity.name,
 
     cityEl.append(cityNameEl);
   historyEl.append(cityEl);
+
+  return cityNameEl;
+
 }
+
+function showForecast() {
+const id = addToHistory;
+const realId = id.id;
+console.log(realId)
+console.log (id);
+  console.log("Si funciono")
+
+
+
+}
+
 
 function createTodayCard() {
   const today = JSON.parse(localStorage.getItem("today")) || [];
@@ -159,13 +187,13 @@ function createForecast() {
 
     const weatherCard = document.createElement('div');
     const cityNameEl = document.createElement('h2');
-    const iconEl= document.createElement('div');
+    const iconEl = document.createElement('div');
     const tempEl = document.createElement('p');
     const windEl = document.createElement('p');
     const humidityEl = document.createElement('p');
 
-  const weatherClass = cityForecast[i].weatherId;
-  // console.log(typeof weatherClass + " " + weatherClass);
+    const weatherClass = cityForecast[i].weatherId;
+    // console.log(typeof weatherClass + " " + weatherClass);
 
     cityNameEl.textContent = cityForecast[i].date.split(" ").slice(0, -1);
     tempEl.textContent = "Temp:" + " " + cityForecast[i].temp + " °F";
@@ -173,14 +201,14 @@ function createForecast() {
     humidityEl.textContent = "Humidity:" + " " + cityForecast[i].humidity + " %";
 
     const thunderstorm = [200, 201, 202, 210, 211, 212, 221, 230, 231, 232];
-const drizzle = [300, 301, 302, 310, 311, 312, 313, 314, 321];
-const rain = [500, 501, 502, 503, 504];
-const freezingRain = [501];
-const heavyRain = [520, 521, 522, 531];
-const snow = [600, 601, 602, 611,612, 613, 615,616,620,621,622];
-const atmosphere = [701,711,721,731,741,751,761,762,771,781];
-const clear = [800]; 
-const clouds = [801,802,803,804];
+    const drizzle = [300, 301, 302, 310, 311, 312, 313, 314, 321];
+    const rain = [500, 501, 502, 503, 504];
+    const freezingRain = [501];
+    const heavyRain = [520, 521, 522, 531];
+    const snow = [600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622];
+    const atmosphere = [701, 711, 721, 731, 741, 751, 761, 762, 771, 781];
+    const clear = [800];
+    const clouds = [801, 802, 803, 804];
 
     if (thunderstorm.includes(weatherClass)) {
       iconEl.setAttribute("class", "thunderstorm");
@@ -194,16 +222,16 @@ const clouds = [801,802,803,804];
       iconEl.setAttribute("class", "heavyRain");
     } else if (snow.includes(weatherClass)) {
       iconEl.setAttribute("class", "snow");
-    } else if (atmosphere.includes(weatherClass)){
+    } else if (atmosphere.includes(weatherClass)) {
       iconEl.setAttribute("class", "atmosphere");
-    }else if (clear.includes(weatherClass)){
+    } else if (clear.includes(weatherClass)) {
       iconEl.setAttribute("class", "clear");
-    }else if (clouds.includes(weatherClass)){
+    } else if (clouds.includes(weatherClass)) {
       iconEl.setAttribute("class", "clouds");
     }
 
-    
- 
+
+
     weatherCard.setAttribute("class", "cards");
 
     weatherCard.appendChild(cityNameEl);
@@ -215,3 +243,13 @@ const clouds = [801,802,803,804];
   }
 }
 searchBtn.addEventListener('click', getWeatherGOD);
+
+
+// const cityNameEl = addToHistory();
+const cityNameEl = document.getElementById('results');
+
+// cityNameEl.addEventListener('click', showForecast);
+
+cityNameEl.addEventListener('click', function () {
+  console.log(this.id);
+});
